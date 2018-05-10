@@ -1,5 +1,6 @@
 FROM alpine:3.6
 RUN apk --no-cache add ca-certificates
+COPY dist/traefik /usr/local/bin/traefik
 RUN set -ex; \
 	apkArch="$(apk --print-arch)"; \
 	case "$apkArch" in \
@@ -9,7 +10,6 @@ RUN set -ex; \
 		*) echo >&2 "error: unsupported architecture: $apkArch"; exit 1 ;; \
 	esac; \
 	apk add --no-cache --virtual .fetch-deps libressl; \
-	wget -O /usr/local/bin/traefik "https://github.com/containous/traefik/releases/download/v1.6.0/traefik_linux-$arch"; \
 	apk del .fetch-deps; \
 	chmod +x /usr/local/bin/traefik
 COPY entrypoint.sh /
