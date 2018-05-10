@@ -395,7 +395,7 @@ func (a *ACME) buildACMEClient(account *Account) (*acme.Client, error) {
 	if len(a.CAServer) > 0 {
 		caServer = a.CAServer
 	}
-	client, err := acme.NewClient(caServer, account, acme.RSA4096)
+	client, err := acme.NewClient(caServer, account, acme.RSA2048)
 	if err != nil {
 		return nil, err
 	}
